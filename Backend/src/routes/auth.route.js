@@ -45,8 +45,17 @@ router.get('/google/callback', async (req, res) => {
 
         const userProfile = profileResponse.data;
 
-        
+     const isUserExists = await userModel.findOne({email :userProfile.email})
+   
+     if(isUserExists){
+        isUserExists.refreshToken = refresh_token || isUserExists.refreshToken;
+        await isUserExists.save();
+        return res.status(200).json({
+           message:'Authorization is successfull', profile:userProfile
+        })
+     }
 
+      const newUser = await userModel.create({name:userProfile.name, email:userProfile.email , refreshToken:refresh_token})
         res.status(200).json({
             message: 'Authentication successful',
             tokens: { access_token, refresh_token },
