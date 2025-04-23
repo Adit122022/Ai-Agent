@@ -4,20 +4,27 @@ import axios from 'axios';
 
 
 const Auth = () => {
-    const login = useGoogleLogin({
-        onSuccess: async(tokenResponse) => {
-            const { code } = tokenResponse;
+  const login = useGoogleLogin({
+    redirect_uri: 'http://localhost:3000/api/auth/google/callback',
+    onSuccess: (response) => {
+        console.log(response)
+        const { code } = response
+         console.log(code)
+        alert('Login successful')
         try {
-          const res = await axios.post('http://localhost:3000/api/auth/google/callback', { code });
-          console.log("Server response:", res.data);
-        } catch (err) {
-          console.error("Error sending code to backend:", err);
+
+            axios.get(`http://localhost:3000/api/auth/google/callback?code=${code}`).then((res) => {
+                console.log(res)
+
+            })
+        } catch (error) {
+            console.error('Error during login:', error);
         }
-      },
-        flow:'auth-code',   //for  the access token
-        onError:error => console.log(error),
-        scope:"https://mail.google.com/  https://www.googleapis.com/auth/calendar    profile email openid",
-      });
+    },
+    onError: () => { },
+    flow: 'auth-code',
+    scope: "https://mail.google.com/ https://www.googleapis.com/auth/calendar profile email openid",
+})
   return (
     <main className="auth-main h-screen overflow-hidden flex items-center justify-center">
     <section className="auth-section">

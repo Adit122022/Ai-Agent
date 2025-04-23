@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    token: {
+    refreshToken: {
         type: String,
         default: null
     }
