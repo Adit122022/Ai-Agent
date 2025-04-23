@@ -1,6 +1,6 @@
 import { google } from'googleapis';
-import {userModel as User} from '../models/user.model';// assuming your User model is here
-import config from '../config/config';
+import  User from '../models/user.model.js';// assuming your User model is here
+import config from '../config/config.js';
  
 const CLIENT_ID = config.GOOGLE_CLIENT_ID
 const CLIENT_SECRET = config.GOOGLE_CLIENT_SECRET

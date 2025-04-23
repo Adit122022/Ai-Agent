@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import {sendEmail} from '../services/google.service.js'
+import goggleService from '../services/google.service.js'
 const server = new McpServer({
   name: "example-server",
   version: "1.0.0"
@@ -17,7 +17,7 @@ subject : z.string(),
 message : z.string(),
 
 } , async({userid, to, subject,message})=>{
-    try {await sendEmail({userid,to,subject,message})
+    try {await goggleService.sendEmail({userid,to,subject,message})
      return "mail send succesfull"
         
     } catch (error) {
