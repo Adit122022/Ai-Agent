@@ -10,8 +10,8 @@ const REDIRECT_URI = config.GOOGLE_REDIRECT_URI;
  * Create OAuth2 client for a user using their refresh token.
  */
 async function getAuthenticatedClient(userId) {
-  console.log("Getting authenticated client for user:", userId);
-    const user = await userModel.findById(userId);
+  const user = await userModel.findById(userId);
+  console.log("Getting authenticated client for user:", user);   // --> this line is not showing in the console
     if (!user || !user.refreshToken) throw new Error('User not found or not authenticated.');
 
     const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);

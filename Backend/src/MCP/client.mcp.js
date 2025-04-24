@@ -27,7 +27,7 @@ const getResponse = async () => {
     const tools = (await client.listTools()).tools;
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash-preview-04-17",
-        contents: "write an email to adity122022@gmail.com  , on topic of future of AI agent , decide subject and message on your own, use userID:680887623a729b61cb8295ab",
+        contents: "write an email to adity122022@gmail.com  , on topic of future of AI agent , decide subject and message on your own, use userID:680889fa47efc83ad0fed2cf",
         config: {
             tools: [
                 {

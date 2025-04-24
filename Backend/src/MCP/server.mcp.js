@@ -4,9 +4,10 @@ import mongoose from "mongoose";
 import fs from "fs";
 import { z } from "zod";
 import googleService from "../services/google.service.js"
+import config from "../config/config.js";
 
 
-mongoose.connect("mongodb://localhost:27017/kodr-email-agent").then(() => {
+mongoose.connect(config.MONGO_URI).then(() => {
     console.log("Connected to MongoDB")
 })
 
@@ -21,10 +22,10 @@ server.tool("sendmail", "send a mail to a emailaddress", {
     to: z.string(),
     subject: z.string(),
     message: z.string()
-}, async ({ userId, to, subject, message }) => {
+}, async ({ userid, to, subject, message }) => {
     try {
-      console.log("Getting authenticated client for user:", userId);
-        await googleService.sendEmail(userId, to, subject, message)
+      console.log("Getting authenticated client for user:", userid);
+        await googleService.sendEmail(userid, to, subject, message)
 
         return {
             content: [
@@ -54,9 +55,9 @@ server.tool("sendmail", "send a mail to a emailaddress", {
 server.tool('fetchmails', "fetch latest emails", {
     userid: z.string(),
     maxCount: z.number().default(10)
-}, async ({ userId, maxCount }) => {
+}, async ({ userid, maxCount }) => {
     try {
-        const emails = await googleService.fetchEmails(userId, maxCount)
+        const emails = await googleService.fetchEmails(userid, maxCount)
         return emails
     } catch (err) {
         console.log(err)
