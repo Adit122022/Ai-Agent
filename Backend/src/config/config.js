@@ -9,6 +9,7 @@ const _config = {
     GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
     MONGO_URI: process.env.MONGO_URI,
     SECRET_KEY: process.env.SECRET_KEY,
+    GEMINAI_API_KEY:process.env.GEMINAI_API_KEY
 }
 
 
